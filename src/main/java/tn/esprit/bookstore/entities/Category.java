@@ -15,7 +15,7 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @Column(length = 1000 )
+    @Column(columnDefinition = "varchar(10000) default 'No Description provided for this category'")
     private String description;
 
 
