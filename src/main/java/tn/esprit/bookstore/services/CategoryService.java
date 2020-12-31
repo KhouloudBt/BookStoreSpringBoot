@@ -1,8 +1,10 @@
 package tn.esprit.bookstore.services;
 
+//import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+//import sun.reflect.generics.tree.Tree;
 import tn.esprit.bookstore.dao.CategoryRepository;
 import tn.esprit.bookstore.entities.Category;
 import tn.esprit.bookstore.utilities.RegexTests;
@@ -25,9 +27,7 @@ public class CategoryService implements ICategoryService {
     public List<Category> retrieveAllCategories() {
         List<Category> categories = new ArrayList<Category>();
         categoryRepository.findAll().forEach(categories::add);
-        logger.info("Categories found with findAll():");
-        logger.info("-------------------------------");
-        logger.info(categories);
+        logger.info("retrieved list of categories"+categories);
         return categories;
     }
 
@@ -39,9 +39,7 @@ public class CategoryService implements ICategoryService {
         {
             treemap.put(category.getName(), category.getDescription());
         }
-        logger.info("Categories retirieved to a treemap <Name,Description>:");
-        logger.info("-------------------------------");
-        logger.info(treemap);
+        logger.info("retrieved list of categories"+treemap);
         return treemap;
     }
 
@@ -62,14 +60,9 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void deleteCategory(String id) {
-        Category category = retrieveCategoryById(id);
-        if (category!=null) {
-            categoryRepository.delete(category);
-            logger.info("-------------------------------");
-            logger.info("Deleted category  " + category);
-        }
-        else logger.warn("Couldn't find category with id "+ id );
-
+        Category cat = retrieveCategoryById(id);
+        if (cat!=null)
+            categoryRepository.delete(cat);
     }
 
     @Override
@@ -82,7 +75,7 @@ public class CategoryService implements ICategoryService {
     public Category retrieveCategoryById(String id) {
         Optional<Category> cat= categoryRepository.findById(Long.parseLong(id));
         if (cat.get() ==null)
-        logger.warn("Couldn't find category with id "+ id );
+            logger.error("category with id "+id+" doesn't exist");
         else logger.info("Retrieved category "+cat.get());
         return cat.get();
     }
@@ -93,7 +86,7 @@ public class CategoryService implements ICategoryService {
                .filter(c->c.getName().toUpperCase().contains(name.toUpperCase()))
                .collect(Collectors.toList());
        if (cat==null)
-        logger.warn("Couldn't find category with name "+ name );
+           logger.warn("this category doesn't exist !");
        else
            logger.info("retrieved categories: "+cat);
        return cat;
