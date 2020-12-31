@@ -1,4 +1,7 @@
 package tn.esprit.bookstore.dao;
 
-public interface BookImageRepository {
+import org.springframework.data.repository.CrudRepository;
+import tn.esprit.bookstore.entities.BookImage;
+
+public interface BookImageRepository extends CrudRepository<BookImage,String> {
 }
