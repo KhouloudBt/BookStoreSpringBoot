@@ -28,16 +28,7 @@ public class BookService implements IBookService {
 
     @Override
     public Book addBook(Book book) {
-      /*  if ((RegexTests.isAvalidCategory(book.getName())) && (categoryNameDoesntExist(category.getName()))) {
-            logger.info("Adding Category " + category);
-            return categoryRepository.save(category);
-        }
-        else
-        {
-            logger.warn("Invalid category name: " + category.getName());
-            return null;
 
-        }*/
         return  null;
 
     }

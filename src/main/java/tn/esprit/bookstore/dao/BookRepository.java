@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface BookRepository extends CrudRepository<Book,String> {
     Book findBookByTitle(String title);
-    List<Book> SearchBooksByTitle(String title);
+
 
 
 }
