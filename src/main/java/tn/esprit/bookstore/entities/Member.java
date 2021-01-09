@@ -30,8 +30,7 @@ public class Member implements Serializable {
         this.phone = phone;
     }
 
-    public Member(long id, String firstName, String lastName, String email, String password, String phone, Role role) {
-        this.id = id;
+    public Member(String firstName, String lastName, String email, String password, String phone, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

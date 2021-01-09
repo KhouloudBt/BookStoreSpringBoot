@@ -2,6 +2,7 @@ package tn.esprit.bookstore.services;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.MemberRepository;
 import tn.esprit.bookstore.entities.Category;
 import tn.esprit.bookstore.entities.Member;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class MemberService implements IMemberService {
 
     @Autowired
@@ -29,6 +30,11 @@ public class MemberService implements IMemberService {
     }
 
     @Override
+    public Member addMember(Member m) {
+        return memberRepository.save(m);
+    }
+
+    @Override
     public void deleteMember(String id) {
         memberRepository.deleteById(Long.parseLong(id));
     }
@@ -38,6 +44,8 @@ public class MemberService implements IMemberService {
 
         return null;
     }
+
+
 
     @Override
     public Member retrieveMemberById(String id) {
