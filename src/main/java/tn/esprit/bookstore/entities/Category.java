@@ -47,11 +47,6 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Id
     public long getId() {
         return id;
     }

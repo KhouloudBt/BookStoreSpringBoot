@@ -2,7 +2,9 @@ package tn.esprit.bookstore.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Book implements Serializable {
@@ -24,11 +26,15 @@ public class Book implements Serializable {
     private String EditingHouse;
     private int id_owner;
     @Column(columnDefinition = "varchar(500) default 'No description provided for this Book'")
-    private String cover;
-    @Column(columnDefinition = "varchar(3000) default 'C:\timage\tpanda.jpg'")
     private String desciption;
+    @Column(columnDefinition = "varchar(3000) default 'C:\timage\tpanda.jpg'")
+    private String cover;
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<Category> categories;
+    @OneToMany( mappedBy="book" )
+    private List<Resource> resources = new ArrayList<>();
 
     public Book() {
     }
@@ -133,5 +139,23 @@ public class Book implements Serializable {
 
     public void setDesciption(String desciption) {
         this.desciption = desciption;
+    }
+
+    public int getId_owner() {return id_owner;}
+
+    public void setId_owner(int id_owner) {this.id_owner = id_owner;}
+
+    public Collection<Category> getCategories() {return categories;}
+
+    public void setCategories(Collection<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }
