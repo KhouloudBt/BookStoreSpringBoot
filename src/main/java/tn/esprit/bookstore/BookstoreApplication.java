@@ -12,7 +12,6 @@ public class BookstoreApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookstoreApplication.class, args);
 
-        System.out.println(RegexTests.isAvalidCategory("Classics"));
     }
 
 }

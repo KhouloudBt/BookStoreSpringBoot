@@ -4,6 +4,7 @@ package tn.esprit.bookstore.entities;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 
 @Entity
@@ -18,6 +19,8 @@ public class Category implements Serializable {
     @Column(columnDefinition = "varchar(10000) default 'No Description provided for this category'")
     private String description;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<Book> books;
 
     public Category(String name, String description) {
         this.name=name;

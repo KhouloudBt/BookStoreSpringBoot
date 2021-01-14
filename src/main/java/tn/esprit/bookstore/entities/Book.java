@@ -1,9 +1,8 @@
 package tn.esprit.bookstore.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 public class Book implements Serializable {
@@ -28,6 +27,8 @@ public class Book implements Serializable {
     private String cover;
     @Column(columnDefinition = "varchar(3000) default 'C:\timage\tpanda.jpg'")
     private String desciption;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<Category> categories;
 
     public Book() {
     }
@@ -42,6 +43,17 @@ public class Book implements Serializable {
         this.desciption = desciption;
     }
 
+    public Book(String isbn, String title, String author, float price, String editingHouse, int id_owner, String cover, String desciption, Collection<Category> categories) {
+        this.isbn = isbn;
+        this.title = title;
+        Author = author;
+        this.price = price;
+        EditingHouse = editingHouse;
+        this.id_owner = id_owner;
+        this.cover = cover;
+        this.desciption = desciption;
+        this.categories = categories;
+    }
 
     public String getIsbn() {
         return isbn;

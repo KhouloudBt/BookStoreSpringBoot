@@ -3,7 +3,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 @Entity
-public class BookImage {
+@Table(name = "files")
+public class Resource {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -16,10 +17,11 @@ public class BookImage {
     @Lob
     private byte[] data;
 
-    public BookImage() {
+    public Resource() {
+
     }
 
-    public BookImage(String fileName, String fileType, byte[] data) {
+    public Resource(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
@@ -29,28 +31,28 @@ public class BookImage {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getFileName() {
         return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public String getFileType() {
         return fileType;
     }
 
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
     public byte[] getData() {
         return data;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public void setData(byte[] data) {
