@@ -9,7 +9,7 @@ public interface IBookService {
 
     List<Book> retrieveAllBooks();
     Book addBook(Book book);
-    void deleteBook(String id);
+    void archiveBook(String id);
     Book updateBook(Category u);
     Book retrieveBookById(String id);
     List<Book> retrieveBookByTitle(String name);

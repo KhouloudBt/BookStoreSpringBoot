@@ -3,7 +3,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 @Entity
-@Table(name = "files")
 public class Resource {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -11,8 +10,10 @@ public class Resource {
     private String id;
 
     private String fileName;
-
     private String fileType;
+    @ManyToOne
+    @JoinColumn(name="idBook", nullable=true)
+    private Book book;
 
     @Lob
     private byte[] data;
@@ -24,6 +25,14 @@ public class Resource {
     public Resource(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
+        this.data = data;
+    }
+
+    public Resource(String id, String fileName, String fileType, Book book, byte[] data) {
+        this.id = id;
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.book = book;
         this.data = data;
     }
 
@@ -57,5 +66,13 @@ public class Resource {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
