@@ -4,7 +4,7 @@ package tn.esprit.bookstore.views;
 import java.util.List;
 import tn.esprit.bookstore.entities.Annonce;
 
-public interface IAnnonceService {
+public interface IAnnonceService  {
 
     List<Annonce> retrieveAllAnnonce();
 

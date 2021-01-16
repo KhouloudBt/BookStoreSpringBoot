@@ -3,11 +3,13 @@ package tn.esprit.bookstore.entities;
 
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Annonce  implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -21,8 +23,7 @@ public class Annonce  implements Serializable {
     public Annonce() {}
 
 
-    public Annonce(long id, Date date_debut, Date date_fin, Boolean etat, Book livre, String description) {
-        this.id = id;
+    public Annonce(Date date_debut, Date date_fin, Boolean etat, Book livre, String description) {
         this.date_debut = date_debut;
         this.date_fin = date_fin;
         this.etat = etat;
@@ -32,10 +33,6 @@ public class Annonce  implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Date getDate_debut() {

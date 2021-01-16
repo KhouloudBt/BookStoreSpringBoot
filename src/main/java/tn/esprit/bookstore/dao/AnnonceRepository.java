@@ -1,5 +1,7 @@
 package tn.esprit.bookstore.dao;
 
 
-public interface AnnonceRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface AnnonceRepository extends CrudRepository {
 }
