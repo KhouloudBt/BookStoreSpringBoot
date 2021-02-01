@@ -1,26 +1,31 @@
 package tn.esprit.bookstore.services;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.Archive_bookRepository;
 import tn.esprit.bookstore.dao.BookRepository;
-import tn.esprit.bookstore.entities.Archive_Book;
+import tn.esprit.bookstore.entities.ArchiveBook;
 import tn.esprit.bookstore.entities.Book;
-import tn.esprit.bookstore.entities.Category;
 import tn.esprit.bookstore.views.IBookService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
 public class BookService implements IBookService {
+
     @Autowired
     BookRepository bookRepository;
 
     @Autowired
     Archive_bookRepository archive_bookRepository;
 
-    private static final Logger logger = Logger.getLogger(CategoryService.class);
+    private final Logger logger = LoggerFactory.getLogger(BookService.class);
 
 
     @Override
@@ -38,14 +43,18 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public void archiveBook(String id) {
+    public ArchiveBook archiveBook(String id) {
         Book book = retrieveBookById(id);
-        archive_bookRepository.save(new Archive_Book(book));
+       return archive_bookRepository.save(new ArchiveBook(book));
     }
 
+
+
     @Override
-    public Book updateBook(Category u) {
-        return null;
+    public Book updateBook(Book b) {
+        Book book= this.retrieveBookById(b.getIsbn());
+        bookRepository.delete(book);
+       return bookRepository.save(b);
     }
 
     @Override
@@ -58,7 +67,10 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public List<Book> retrieveBookByTitle(String name) {
-        return null;
+    public List<Book> retrieveBookByTitle(String title) {
+        return this.retrieveAllBooks()
+                .stream()
+                .filter(b->b.getTitle().contains(title))
+                .collect(Collectors.toList());
     }
 }

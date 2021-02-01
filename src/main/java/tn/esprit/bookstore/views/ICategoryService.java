@@ -9,7 +9,7 @@ public interface ICategoryService {
 
     List<Category> retrieveAllCategories();
     Category addCategory(Category u);
-    void deleteCategory(String id);
+    void deleteCategory(Category category);
     Category updateCategory(Category u);
     Category retrieveCategoryById(String id);
     List<Category> retrieveCategoryByName(String name);
