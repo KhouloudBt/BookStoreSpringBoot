@@ -1,6 +1,7 @@
 package tn.esprit.bookstore.services;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.MemberRepository;
@@ -18,7 +19,7 @@ public class MemberService implements IMemberService {
     @Autowired
     MemberRepository memberRepository;
 
-    private static final Logger logger = Logger.getLogger(MemberService.class);
+    private final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
 
     @Override

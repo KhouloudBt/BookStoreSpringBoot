@@ -1,6 +1,7 @@
 package tn.esprit.bookstore.services;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.CategoryRepository;
@@ -17,7 +18,7 @@ public class CategoryService implements ICategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    private static final Logger logger = Logger.getLogger(CategoryService.class);
+    private final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
 
 
@@ -57,10 +58,8 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public void deleteCategory(String id) {
-        Category cat = retrieveCategoryById(id);
-        if (cat!=null)
-            categoryRepository.delete(cat);
+    public void deleteCategory(Category category) {
+            categoryRepository.delete(category);
     }
 
     @Override
