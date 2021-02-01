@@ -1,8 +1,10 @@
 package tn.esprit.bookstore.views;
 
 
+import java.util.Date;
 import java.util.List;
 import tn.esprit.bookstore.entities.Annonce;
+import tn.esprit.bookstore.entities.Book;
 
 public interface IAnnonceService {
 
@@ -10,13 +12,13 @@ public interface IAnnonceService {
 
     public Annonce saveAnnonce(Annonce c) ;
 
-    public Annonce updateAnnonce(Annonce c) ;
+    public Annonce updateAnnonce(Annonce c,String id) ;
 
-    public Annonce removeAnnonce(long id);
+    public void removeAnnonce(String id);
 
     Annonce retrieveAnnonceById(String id);
 
-    List<Annonce> retrieveAnnonceByBook(String name);
+    Annonce retrieveAnnonceByBook(Book name);
 
-    List<Annonce> retrieveBookByDate(String name);
+    List<Annonce> retrieveBookByDate(Date d);
 }
