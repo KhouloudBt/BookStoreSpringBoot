@@ -18,7 +18,8 @@ public interface IAnnonceService {
 
     Annonce retrieveAnnonceById(String id);
 
-    Annonce retrieveAnnonceByBook(Book name);
 
-    List<Annonce> retrieveBookByDate(Date d);
+    List<Annonce> retrieveAnnonceDispo(Boolean b);
+
+    List<Annonce> retrieveAnn();
 }

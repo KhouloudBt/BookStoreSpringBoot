@@ -9,7 +9,10 @@ import sun.rmi.runtime.Log;
 import tn.esprit.bookstore.dao.AnnonceRepository;
 import tn.esprit.bookstore.entities.Annonce;
 import tn.esprit.bookstore.views.IAnnonceService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
@@ -45,26 +48,25 @@ public class AnnonceService implements IAnnonceService {
     }
 
 
-    @Override
+
     public Annonce retrieveAnnonceById(String id) {
-        Optional<Annonce> an = annonceRepository.findById(Long.parseLong(id));
-        if(an.get()==null)
-            log.error("this "+id+"dose not exist");
-        else
-            log.info("the annonouncement is :" + an.get());
-        return an.get();
+        return annonceRepository.findById(Long.parseLong(id));
     }
 
 
 
-    public Annonce retrieveAnnonceByBook(Book name) {
-        return null;
+
+    public List<Annonce> retrieveAnnonceDispo(Boolean b) {
+
+        return annonceRepository.findByEtat(b);
     }
 
 
-    public List<Annonce> retrieveBookByDate(Date d) {
-        return null;
+    public List<Annonce> retrieveAnn() {
+
+        return annonceRepository.findAllAnnonce();
     }
+
 
 
 }

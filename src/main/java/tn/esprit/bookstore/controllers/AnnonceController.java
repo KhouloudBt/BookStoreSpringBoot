@@ -1,5 +1,6 @@
 package tn.esprit.bookstore.controllers;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,6 +44,12 @@ public class AnnonceController {
     public Annonce retrieveById(@PathVariable(name="id") String id){
         return annonceService.retrieveAnnonceById(id);}
 
+    @GetMapping("/byetat/{etat}")
+    public List<Annonce> retrieveByDate(@PathVariable(name="etat") String etat){
+        return annonceService.retrieveAnnonceDispo(Boolean.parseBoolean(etat));}
 
 
+    @GetMapping("/a")
+    public List<Annonce> retrieveAnnonces(){
+        return annonceService.retrieveAnn();}
 }
