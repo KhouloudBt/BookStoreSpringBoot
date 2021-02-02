@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.CategoryRepository;
 import tn.esprit.bookstore.entities.Category;
+import tn.esprit.bookstore.exceptions.ResourceNotFoundException;
 import tn.esprit.bookstore.utilities.RegexTests;
 import tn.esprit.bookstore.views.ICategoryService;
 
@@ -20,8 +21,6 @@ public class CategoryService implements ICategoryService {
 
     private final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
-
-
     @Override
     public List<Category> retrieveAllCategories() {
         List<Category> categories = new ArrayList<Category>();
@@ -32,7 +31,6 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public TreeMap<String, String> retrieveCategoriesToTreeMAp() {
-
         TreeMap<String, String>  treemap= new TreeMap<String,String>((c1,c2)->c1.compareTo(c2));
         for (Category category: retrieveAllCategories())
         {
@@ -44,7 +42,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category addCategory(Category category) {
-        if ((RegexTests.isAvalidCategory(category.getName())) && (categoryNameDoesntExist(category.getName()))) {
+        if ((RegexTests.isAvalidCategory(category.getName()))) {
             logger.info("Adding Category " + category);
             return categoryRepository.save(category);
         }
@@ -58,8 +56,9 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public void deleteCategory(Category category) {
-            categoryRepository.delete(category);
+    public void deleteCategory(String id) {
+        Optional<Category> cat= categoryRepository.findById(Long.parseLong(id));
+        categoryRepository.delete(cat.get());
     }
 
     @Override
@@ -79,6 +78,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<Category> retrieveCategoryByName(String name) {
+
        List<Category> cat = this.retrieveAllCategories().stream()
                .filter(c->c.getName().toUpperCase().contains(name.toUpperCase()))
                .collect(Collectors.toList());
