@@ -13,4 +13,5 @@ public interface IBookService {
     Book updateBook(Book book);
     Book retrieveBookById(String id);
     List<Book> retrieveBookByTitle(String name);
+    List<ArchiveBook> retrieveArchivedBooks();
 }

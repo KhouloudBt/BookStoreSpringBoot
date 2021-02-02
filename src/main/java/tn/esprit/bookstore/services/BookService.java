@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.bookstore.dao.Archive_bookRepository;
+import tn.esprit.bookstore.dao.ArchiveBookRepository;
 import tn.esprit.bookstore.dao.BookRepository;
 import tn.esprit.bookstore.entities.ArchiveBook;
 import tn.esprit.bookstore.entities.Book;
@@ -23,7 +23,7 @@ public class BookService implements IBookService {
     BookRepository bookRepository;
 
     @Autowired
-    Archive_bookRepository archive_bookRepository;
+    ArchiveBookRepository archive_bookRepository;
 
     private final Logger logger = LoggerFactory.getLogger(BookService.class);
 
@@ -45,6 +45,8 @@ public class BookService implements IBookService {
     @Override
     public ArchiveBook archiveBook(String id) {
         Book book = retrieveBookById(id);
+        book.setArchived(true);
+        bookRepository.save(book);
        return archive_bookRepository.save(new ArchiveBook(book));
     }
 
@@ -73,4 +75,14 @@ public class BookService implements IBookService {
                 .filter(b->b.getTitle().contains(title))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ArchiveBook> retrieveArchivedBooks()
+    {
+        List<ArchiveBook> books = new ArrayList<ArchiveBook>();
+
+         archive_bookRepository.findAll().forEach(books::add);
+         return books;
+    }
+
 }
