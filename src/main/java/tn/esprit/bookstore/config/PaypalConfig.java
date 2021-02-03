@@ -1,17 +1,20 @@
 package tn.esprit.bookstore.config;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
 
 @Configuration
 public class PaypalConfig {
 
-    @Value("${paypal.client.id}")
+    @Value("${paypal.client.app}")
     private String clientId;
     @Value("${paypal.client.secret}")
     private String clientSecret;
@@ -19,22 +22,21 @@ public class PaypalConfig {
     private String mode;
 
     @Bean
-    public Map<String, String> paypalSdkConfig() {
-        Map<String, String> configMap = new HashMap<>();
-        configMap.put("mode", mode);
-        return configMap;
+    public Map<String, String> paypalSdkConfig(){
+        Map<String, String> sdkConfig = new HashMap<>();
+        sdkConfig.put("mode", mode);
+        return sdkConfig;
     }
 
     @Bean
-    public OAuthTokenCredential oAuthTokenCredential() {
+    public OAuthTokenCredential authTokenCredential(){
         return new OAuthTokenCredential(clientId, clientSecret, paypalSdkConfig());
     }
 
     @Bean
-    public APIContext apiContext() throws PayPalRESTException {
-        APIContext context = new APIContext(oAuthTokenCredential().getAccessToken());
-        context.setConfigurationMap(paypalSdkConfig());
-        return context;
+    public APIContext apiContext() throws PayPalRESTException{
+        APIContext apiContext = new APIContext(authTokenCredential().getAccessToken());
+        apiContext.setConfigurationMap(paypalSdkConfig());
+        return apiContext;
     }
-
 }
