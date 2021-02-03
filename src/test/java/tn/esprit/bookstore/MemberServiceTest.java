@@ -18,8 +18,8 @@ public class MemberServiceTest {
     IMemberService memberService;
 
     @Test
-    public void addMember(){
-        Member m = new Member("Khouloud","benTaoues","mail@khouloud.tn","pwd1236","12365478",Role.Administrator);
+    public void addMemberTest(){
+        Member m = new Member("Khouloud","benTaoues","khouloud","mail@khouloud.tn","pwd1236","12365478");
         memberService.addMember(m);
     }
 
