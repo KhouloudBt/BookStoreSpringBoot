@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.ArchiveBookRepository;
 import tn.esprit.bookstore.dao.BookRepository;
+import tn.esprit.bookstore.dao.PromotionRepository;
+import tn.esprit.bookstore.dao.DiscountRepository;
 import tn.esprit.bookstore.entities.ArchiveBook;
 import tn.esprit.bookstore.entities.Book;
+import tn.esprit.bookstore.entities.Discount;
+import tn.esprit.bookstore.entities.Promition;
 import tn.esprit.bookstore.views.IBookService;
 
 import java.util.ArrayList;
@@ -21,6 +25,11 @@ public class BookService implements IBookService {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    PromotionRepository promotionRepository;
+    @Autowired
+    DiscountRepository discountRepository;
 
     @Autowired
     ArchiveBookRepository archive_bookRepository;
@@ -39,7 +48,15 @@ public class BookService implements IBookService {
     @Override
     public Book addBook(Book book) {
 
-        return bookRepository.save(book);
+         bookRepository.save(book);
+        // creation of free promotion
+
+        if (book.getPrice()==0)
+        {
+            Promition p = new Promition(book);
+            promotionRepository.save(p);
+        }
+        return book;
     }
 
     @Override
@@ -56,7 +73,40 @@ public class BookService implements IBookService {
     public Book updateBook(Book b) {
         Book book= this.retrieveBookById(b.getIsbn());
         bookRepository.delete(book);
-       return bookRepository.save(b);
+
+
+
+                        // *** if price changed *** //
+
+        if (b.getPrice()<book.getPrice())
+        {
+
+            // creation of free promotion
+
+            if (b.getPrice()==0)
+            {
+                Promition p = new Promition(b);
+                promotionRepository.save(p);
+            }
+
+            else
+            {
+                // creation of discount promotion
+                float newPrice=b.getPrice();
+                float oldPrice=book.getPrice();
+                float percentage;
+                percentage= 100 - (newPrice * 100 / oldPrice );
+
+               Discount d = new Discount (b,newPrice,oldPrice,percentage);
+                discountRepository.save(d);
+
+            }
+        }
+
+
+                // *** end if price changed *** //
+
+        return bookRepository.save(b);
     }
 
     @Override
