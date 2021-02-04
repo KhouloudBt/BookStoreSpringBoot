@@ -18,12 +18,17 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 
-@GetMapping("/")
-public List<Cart>getCarts(){
-	System.err.println("test");
-	return cartService.getCarts();
+	@GetMapping
+	public List<Cart>carts(){
+		return cartService.getCarts();	
+	}
 	
-}
+	@GetMapping("/")
+	public List<Cart>getCarts(){
+		return cartService.getCarts();	
+	}
+	
+
 //Insert
 @PostMapping(value="/add" ,produces = MediaType.APPLICATION_JSON_VALUE)
 public Cart creerCart(@RequestBody Cart c) {

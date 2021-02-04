@@ -1,6 +1,9 @@
 package tn.esprit.bookstore.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,6 +34,7 @@ public class Book implements Serializable {
     private boolean archived;
     @ManyToMany(cascade = CascadeType.ALL)
     private Collection<Category> categories;
+    @JsonIgnore
     @OneToMany( mappedBy="book" )
     private List<Resource> resources = new ArrayList<>();
 
@@ -50,8 +54,18 @@ public class Book implements Serializable {
         this.desciption = desciption;
         archived=false;
     }
+    
+    
 
-    public Book(String isbn, String title, String author, float price, String editingHouse, int id_owner, String cover, String desciption, Collection<Category> categories) {
+    public Book(String isbn, String title, String author, float price, String editingHouse) {
+		this.isbn = isbn;
+		this.title = title;
+		Author = author;
+		this.price = price;
+		EditingHouse = editingHouse;
+	}
+
+	public Book(String isbn, String title, String author, float price, String editingHouse, int id_owner, String cover, String desciption, Collection<Category> categories) {
         this.isbn = isbn;
         this.title = title;
         Author = author;
