@@ -36,6 +36,9 @@ public class Member implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
+
     public Member() {
 
     }
@@ -58,6 +61,18 @@ public class Member implements Serializable {
         this.phone = phone;
 
     }
+    public Member(String firstName, String lastName,String username, String email, String password, String phone ,Cart cart) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.cart=cart;
+
+    }
+
+
 
     public Member(String username, String email, String encode) {
         this.username = username;
@@ -143,6 +158,14 @@ public class Member implements Serializable {
 
     public void setGender(EGender gender) {
         this.gender = gender;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

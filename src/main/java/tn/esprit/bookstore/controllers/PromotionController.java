@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.bookstore.entities.Promition;
-import tn.esprit.bookstore.services.PromotionService;
+import tn.esprit.bookstore.entities.*;
+import tn.esprit.bookstore.services.*;
 
 import java.util.List;
 
@@ -15,10 +15,26 @@ import java.util.List;
 public class PromotionController {
     @Autowired
     private PromotionService proService;
+    @Autowired
+    private CategoryDesireService categoryDesireService;
+    @Autowired
+    private WriterDesireService writerDesireService;
 
     @GetMapping("/")
     public List<Promition> getPros(){
         return proService.getPromotions();
 
     }
+    @GetMapping("/")
+    public List<CategoryDesire> getCats(){
+        return categoryDesireService.getCategoryDesires();
+
+    }
+
+    @GetMapping("/")
+    public List<WriterDesire> getWriters(){
+        return writerDesireService.getWriterDesires();
+    }
+
+
 }
