@@ -44,6 +44,7 @@ public class AnnonceController {
     @GetMapping("/byid/{id}")
     public Annonce retrieveById(@PathVariable(name="id") String id){
         return annonceService.retrieveAnnonceById(id);}
+
     //récuperation des annonces via selon ses états
     @GetMapping("/byetat/{etat}")
     public List<Annonce> retrieveByDate(@PathVariable(name="etat") String etat){

@@ -83,5 +83,10 @@ public class AnnonceService implements IAnnonceService {
         return annonceRepository.findDispo();
     }
 
+    @Override
+    public List<Annonce> annoncesNeedPromoting() {
+        return null;
+    }
+
 
 }

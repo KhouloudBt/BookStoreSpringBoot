@@ -24,4 +24,6 @@ public interface IAnnonceService {
     List<Annonce> retrieveNewAnn();
 
     List<Annonce> retrieveDispoAnn();
+
+    List<Annonce> annoncesNeedPromoting();
 }
