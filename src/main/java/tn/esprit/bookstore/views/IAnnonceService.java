@@ -21,5 +21,7 @@ public interface IAnnonceService {
 
     List<Annonce> retrieveAnnonceDispo(Boolean b);
 
-    List<Annonce> retrieveAnn();
+    List<Annonce> retrieveNewAnn();
+
+    List<Annonce> retrieveDispoAnn();
 }

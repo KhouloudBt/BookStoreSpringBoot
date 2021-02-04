@@ -15,7 +15,8 @@ public class AnnonceController {
     @Autowired
     private AnnonceService annonceService;
 
-
+/************************CRUD************************/
+    //récuperation des annonces (en utilisant le JPA Paging)
     @GetMapping("/")
     public List<Annonce> retrieveAllAnnonce(){
         return annonceService.retrieveAllAnnonce();}
@@ -39,17 +40,24 @@ public class AnnonceController {
         annonceService.removeAnnonce(id);
         return true;
     }
-
+    //récuperation d'une annonce via son ID
     @GetMapping("/byid/{id}")
     public Annonce retrieveById(@PathVariable(name="id") String id){
         return annonceService.retrieveAnnonceById(id);}
-
+    //récuperation des annonces via selon ses états
     @GetMapping("/byetat/{etat}")
     public List<Annonce> retrieveByDate(@PathVariable(name="etat") String etat){
         return annonceService.retrieveAnnonceDispo(Boolean.parseBoolean(etat));}
 
-
-    @GetMapping("/a")
+    //récuperation les annonces d'aujourd'hui  (en utilisant le JPA Query)
+    @GetMapping("/Qannonce")
     public List<Annonce> retrieveAnnonces(){
-        return annonceService.retrieveAnn();}
+        return annonceService.retrieveNewAnn();}
+
+
+    //récuperation les annonces disponibles  (en utilisant le JPA Query)
+    @GetMapping("/DispoAnnonce")
+    public List<Annonce> retrieveDispoAnnonces(){
+        return annonceService.retrieveDispoAnn();}
+/****************************************************/
 }

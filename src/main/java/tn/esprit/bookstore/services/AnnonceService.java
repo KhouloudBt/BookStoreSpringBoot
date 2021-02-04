@@ -1,6 +1,9 @@
 package tn.esprit.bookstore.services;
 
 import org.apache.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.entities.Book;
 import tn.esprit.bookstore.utilities.RegexTests;
@@ -28,7 +31,15 @@ public class AnnonceService implements IAnnonceService {
 
 
     public List<Annonce> retrieveAllAnnonce() {
-        return annonceRepository.findAll();
+        Pageable paging =  PageRequest.of(0, 20);
+        List<Annonce> userList = new ArrayList<Annonce>();
+        Page<Annonce> pagedResult = annonceRepository.findAll(paging);
+        if(pagedResult.hasContent()) {
+            userList = pagedResult.getContent();
+            return pagedResult.getContent();
+        } else {
+            return userList;
+        }
     }
 
 
@@ -62,11 +73,15 @@ public class AnnonceService implements IAnnonceService {
     }
 
 
-    public List<Annonce> retrieveAnn() {
+    public List<Annonce> retrieveNewAnn() {
 
-        return annonceRepository.findAllAnnonce();
+        return annonceRepository.findNewAnnonce();
     }
 
+    @Override
+    public List<Annonce> retrieveDispoAnn() {
+        return annonceRepository.findDispo();
+    }
 
 
 }
