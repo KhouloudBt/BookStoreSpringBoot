@@ -6,9 +6,10 @@ import javax.persistence.*;
 public class Cart {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-
+/*
 @OneToOne(cascade = CascadeType.ALL)
-private Member client;  
+private Member client;
+*/
 
 
 @ManyToMany(cascade = CascadeType.ALL)
