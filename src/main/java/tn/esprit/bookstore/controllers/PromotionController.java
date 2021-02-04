@@ -20,18 +20,18 @@ public class PromotionController {
     @Autowired
     private WriterDesireService writerDesireService;
 
-    @GetMapping("/")
+    @GetMapping("/promotions")
     public List<Promition> getPros(){
         return proService.getPromotions();
 
     }
-    @GetMapping("/")
+    @GetMapping("/CategoryDesires")
     public List<CategoryDesire> getCats(){
         return categoryDesireService.getCategoryDesires();
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/WriterDesires")
     public List<WriterDesire> getWriters(){
         return writerDesireService.getWriterDesires();
     }
