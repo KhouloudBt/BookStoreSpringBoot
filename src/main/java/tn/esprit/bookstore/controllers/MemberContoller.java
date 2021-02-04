@@ -32,9 +32,9 @@ public class MemberContoller {
         return new ResponseEntity<>(memberList, HttpStatus.OK);
     }
 
-    @GetMapping("/premiums")
-    @PreAuthorize("hasAuthority('Role_Membre')")
-    public ResponseEntity<List<Member>> getAllPremiums(@RequestParam(required = false)Role role) {
+   // @GetMapping("/premiums")
+   // @PreAuthorize("hasAuthority('Role_Membre')")
+   /* public ResponseEntity<List<Member>> getAllPremiums(@RequestParam(required = false)Role role) {
         try {
             List<Member> premiums = new ArrayList<Member>();
 
@@ -51,7 +51,7 @@ public class MemberContoller {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 
 
 }
