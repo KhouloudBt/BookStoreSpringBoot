@@ -1,6 +1,7 @@
 package tn.esprit.bookstore.views;
 
 import tn.esprit.bookstore.entities.Category;
+import tn.esprit.bookstore.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.TreeMap;

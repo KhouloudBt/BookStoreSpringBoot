@@ -1,10 +1,12 @@
 package tn.esprit.bookstore.services;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.bookstore.dao.CategoryRepository;
 import tn.esprit.bookstore.entities.Category;
+import tn.esprit.bookstore.exceptions.ResourceNotFoundException;
 import tn.esprit.bookstore.utilities.RegexTests;
 import tn.esprit.bookstore.views.ICategoryService;
 
@@ -17,9 +19,7 @@ public class CategoryService implements ICategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    private static final Logger logger = Logger.getLogger(CategoryService.class);
-
-
+    private final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
     @Override
     public List<Category> retrieveAllCategories() {
@@ -31,7 +31,6 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public TreeMap<String, String> retrieveCategoriesToTreeMAp() {
-
         TreeMap<String, String>  treemap= new TreeMap<String,String>((c1,c2)->c1.compareTo(c2));
         for (Category category: retrieveAllCategories())
         {
@@ -43,7 +42,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category addCategory(Category category) {
-        if ((RegexTests.isAvalidCategory(category.getName())) && (categoryNameDoesntExist(category.getName()))) {
+        if ((RegexTests.isAvalidCategory(category.getName()))) {
             logger.info("Adding Category " + category);
             return categoryRepository.save(category);
         }
@@ -58,9 +57,8 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void deleteCategory(String id) {
-        Category cat = retrieveCategoryById(id);
-        if (cat!=null)
-            categoryRepository.delete(cat);
+        Optional<Category> cat= categoryRepository.findById(Long.parseLong(id));
+        categoryRepository.delete(cat.get());
     }
 
     @Override
@@ -80,11 +78,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<Category> retrieveCategoryByName(String name) {
+
        List<Category> cat = this.retrieveAllCategories().stream()
                .filter(c->c.getName().toUpperCase().contains(name.toUpperCase()))
                .collect(Collectors.toList());
        if (cat==null)
-           logger.warn("this category doesn't exist !");
+           logger.warn("couldn't find any cayegories with the name: "+ name);
        else
            logger.info("retrieved categories: "+cat);
        return cat;

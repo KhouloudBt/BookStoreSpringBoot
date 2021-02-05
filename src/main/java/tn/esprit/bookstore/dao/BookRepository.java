@@ -1,15 +1,20 @@
 package tn.esprit.bookstore.dao;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tn.esprit.bookstore.entities.Book;
 
-import java.util.List;
+import java.util.Collection;
+
 
 @Repository
 public interface BookRepository extends CrudRepository<Book,String> {
-    Book findBookByTitle(String title);
-    List<Book> SearchBooksByTitle(String title);
+
+
+    @Query(value = "SELECT b FROM Book b WHERE b.isbn like %:isbn%")
+	Book findByIsbn(@Param("isbn") String isbn);
 
 
 }
