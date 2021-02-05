@@ -1,4 +1,5 @@
 package tn.esprit.bookstore.utilities;
+import java.sql.Date;
 import java.util.regex.*;
 
 public class RegexTests {
@@ -8,6 +9,9 @@ public class RegexTests {
        return Pattern.matches("[[A-Za-z]+[\\u0020_&]*]+",str);
 
 
+    }
+    public static boolean isValidDate(String date){
+        return Pattern.matches("^\\d{4}-\\d{2}-\\d{2}$\n+",date);
     }
     public  static boolean containsOnlyLettersAndSpaces(String str)
     {
