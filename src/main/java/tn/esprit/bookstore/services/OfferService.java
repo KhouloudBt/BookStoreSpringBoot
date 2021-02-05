@@ -10,6 +10,7 @@ import tn.esprit.bookstore.views.IOfferService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 
@@ -18,7 +19,7 @@ public class OfferService implements IOfferService {
     @Autowired
     OfferRepository offerRepository;
 
-    private static final Logger logger = Logger.getLogger(CategoryService.class);
+    private static final Logger logger = Logger.getLogger(OfferService.class);
 
 
     @Override
@@ -71,6 +72,15 @@ public class OfferService implements IOfferService {
             logger.info("retrieved offers: "+o);
         return o;
 
+    }
+
+    @Override
+    public Offer retrieveOfferByid(long id) {
+        Optional<Offer> o= offerRepository.findById(id);
+        if (o.get() ==null)
+            logger.error("offer with id "+id+" doesn't exist");
+        else logger.info("Retrieved offer"+o.get());
+        return o.get();
     }
 
 
